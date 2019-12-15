@@ -362,10 +362,13 @@ pub fn start_notification_server() -> WebSocketUsers {
 
     if CONFIG.websocket_enabled() {
         thread::spawn(move || {
-            WebSocket::new(factory)
-                .unwrap()
-                .listen((CONFIG.websocket_address().as_str(), CONFIG.websocket_port()))
+            let ws = WebSocket::new(factory).unwrap();
+            CONFIG.set_ws_shutdown_handle(ws.broadcaster());
+
+            ws.listen((CONFIG.websocket_address().as_str(), CONFIG.websocket_port()))
                 .unwrap();
+
+            warn!("WS Server stopped!");
         });
     }
 
