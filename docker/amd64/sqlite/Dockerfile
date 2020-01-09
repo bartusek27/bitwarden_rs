@@ -6,7 +6,7 @@ FROM alpine:3.11 as vault
 
 ENV VAULT_VERSION "v2.12.0_gug"
 
-ENV URL "https://github.com/bartusek27/bw_web_gug/releases/download/$VAULT_VERSION/bw_web_$VAULT_VERSION.tar.gz"
+ENV URL "https://github.com/bartusek27/bw_web_gug/archive/$VAULT_VERSION.tar.gz"
 
 RUN apk add --no-cache --upgrade \
     curl \
